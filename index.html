@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamePayUZ</title>
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent-color: #38bdf8;
+            --text-color: #f8fafc;
+            --btn-color: #2563eb;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            margin: 0;
+            color: var(--accent-color);
+            font-size: 24px;
+        }
+
+        .game-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background-color: var(--btn-color);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #334155;
+            background-color: var(--card-bg);
+            color: #fff;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .package-card {
+            background-color: var(--card-bg);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .package-card.selected {
+            border-color: var(--accent-color);
+            background-color: #1e293b;
+        }
+
+        .pkg-amount {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .pkg-price {
+            font-size: 14px;
+            color: var(--accent-color);
+            margin-top: 5px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background-color: #22c55e;
+            border: none;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>🎮 GamePayUZ</h1>
+        <p style="font-size: 12px; color: #94a3b8;">Tezkor va ishonchli donat xizmati</p>
+    </div>
+
+    <!-- O'yinni tanlash -->
+    <div class="game-tabs">
+        <button class="tab-btn active" id="btn-ff" onclick="selectGame('ff')">Free Fire 🔥</button>
+        <button class="tab-btn" id="btn-pubg" onclick="selectGame('pubg')">PUBG Mobile 🪂</button>
+    </div>
+
+    <!-- Player ID -->
+    <div class="form-group">
+        <label for="playerId">O'yindagi ID raqamingiz:</label>
+        <input type="number" id="playerId" placeholder="Masalan: 12345678" required>
+    </div>
+
+    <!-- Paketlar -->
+    <label>Paketni tanlang:</label>
+    <div class="packages-grid" id="packages">
+        <!-- JS orqali to'ldiriladi -->
+    </div>
+
+    <button class="submit-btn" onclick="submitOrder()">Buyurtma berish</button>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        let selectedGame = 'ff';
+        let selectedPackage = null;
+
+        const packagesData = {
+            ff: [
+                { id: 'ff_100', name: '100 Olmos', price: '14 000 so\'m' },
+                { id: 'ff_310', name: '310 Olmos', price: '40 000 so\'m' },
+                { id: 'ff_520', name: '520 Olmos', price: '65 000 so\'m' },
+                { id: 'ff_1060', name: '1060 Olmos', price: '130 000 so\'m' }
+            ],
+            pubg: [
+                { id: 'pubg_60', name: '60 UC', price: '13 000 so\'m' },
+                { id: 'pubg_325', name: '325 UC', price: '60 000 so\'m' },
+                { id: 'pubg_660', name: '660 UC', price: '118 000 so\'m' },
+                { id: 'pubg_1800', name: '1800 UC', price: '290 000 so\'m' }
+            ]
+        };
+
+        function selectGame(game) {
+            selectedGame = game;
+            selectedPackage = null;
+            document.getElementById('btn-ff').classList.toggle('active', game === 'ff');
+            document.getElementById('btn-pubg').classList.toggle('active', game === 'pubg');
+            renderPackages();
+        }
+
+        function renderPackages() {
+            const container = document.getElementById('packages');
+            container.innerHTML = '';
+            
+            packagesData[selectedGame].forEach(pkg => {
+                const card = document.createElement('div');
+                card.className = 'package-card';
+                card.onclick = () => {
+                    document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+                    selectedPackage = pkg;
+                };
+                card.innerHTML = `
+                    <div class="pkg-amount">${pkg.name}</div>
+                    <div class="pkg-price">${pkg.price}</div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function submitOrder() {
+            const playerId = document.getElementById('playerId').value;
+
+            if (!playerId) {
+                alert("Iltimos, o'yin ID raqamingizni kiriting!");
+                return;
+            }
+            if (!selectedPackage) {
+                alert("Iltimos, paketni tanlang!");
+                return;
+            }
+
+            const orderData = {
+                game: selectedGame === 'ff' ? 'Free Fire' : 'PUBG Mobile',
+                playerId: playerId,
+                package: selectedPackage.name,
+                price: selectedPackage.price
+            };
+
+            tg.sendData(JSON.stringify(orderData));
+        }
+
+        renderPackages();
+    </script>
+</body>
+</html>
