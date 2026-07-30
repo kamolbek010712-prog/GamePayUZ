@@ -1,40 +1,46 @@
+// Telegram Bot Sozlamalari
 const TELEGRAM_BOT_TOKEN = '8908906277:AAHc3SFpNAu3gnC7JLLyWp59OXwMZaQn508'; 
 const TELEGRAM_CHAT_ID = '8785880742';     
 
 let selectedGame = 'Free Fire';
-let selectedPackage = '100 Diamant';
+let selectedPackage = '100 + 100 Bonus';
 let selectedPrice = '13,000 UZS';
+let wonBonus = 'Yo\'q';
 
-// Rasmli Paketlar
+// Paketlar (Free Fire va PUBG Mobile)
 const packagesData = {
     ff: [
-        { name: '100 Diamant', price: '13,000 UZS', img: 'https://img.icons8.com/emoji/48/diamond-emoji.png' },
-        { name: '310 Diamant', price: '38,000 UZS', img: 'https://img.icons8.com/emoji/48/diamond-emoji.png' },
-        { name: '520 Diamant', price: '63,000 UZS', img: 'https://img.icons8.com/emoji/48/diamond-emoji.png' },
-        { name: '1060 Diamant', price: '125,000 UZS', img: 'https://img.icons8.com/emoji/48/diamond-emoji.png' },
-        { name: '2200 Diamant', price: '250,000 UZS', img: 'https://img.icons8.com/emoji/48/diamond-emoji.png' },
-        { name: 'Weekly Pass', price: '25,000 UZS', img: 'https://img.icons8.com/color/48/ticket.png' },
-        { name: 'Monthly Pass', price: '110,000 UZS', img: 'https://img.icons8.com/color/48/vip.png' }
+        { name: '100 + 100 Bonus', price: '13,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/8146/8146767.png', tag: 'BONUS' },
+        { name: '310 + 310 Bonus', price: '38,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2855/2855622.png', tag: 'BONUS' },
+        { name: '520 + 520 Bonus', price: '63,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3081/3081840.png', tag: 'POPULAR' },
+        { name: '1060 Diamant', price: '125,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2855/2855589.png', tag: 'CHEST' },
+        { name: '2180 Diamant', price: '250,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/616/616490.png', tag: 'VAULT' },
+        { name: '5600 Diamant', price: '610,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3514/3514242.png', tag: 'BIG VAULT' },
+        { name: 'Weekly Pass', price: '25,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543332.png', tag: 'PASS' },
+        { name: 'Monthly Pass', price: '110,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543206.png', tag: 'VIP PASS' }
     ],
     pubg: [
-        { name: '60 UC', price: '14,000 UZS', img: 'https://img.icons8.com/color/48/coins.png' },
-        { name: '325 UC', price: '65,000 UZS', img: 'https://img.icons8.com/color/48/coins.png' },
-        { name: '660 UC', price: '128,000 UZS', img: 'https://img.icons8.com/color/48/coins.png' },
-        { name: '1800 UC', price: '330,000 UZS', img: 'https://img.icons8.com/color/48/coins.png' },
-        { name: '3850 UC', price: '650,000 UZS', img: 'https://img.icons8.com/color/48/coins.png' }
+        { name: '60 UC', price: '14,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/9378/9378276.png', tag: '60 UC' },
+        { name: '325 UC', price: '65,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3081/3081840.png', tag: '300+25 UC' },
+        { name: '660 UC', price: '128,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2855/2855622.png', tag: '600+60 UC' },
+        { name: '1800 UC', price: '330,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2855/2855589.png', tag: '1500+300 UC' },
+        { name: '3850 UC', price: '650,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/616/616490.png', tag: '3000+850 UC' },
+        { name: '8100 UC', price: '1,320,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3514/3514242.png', tag: '6000+2100 UC' },
+        { name: 'Royale Pass Pack', price: '110,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543332.png', tag: 'RP' }
     ]
 };
 
-function selectGame(gameType) {
+// O'yinni tanlash
+window.selectGame = function(gameType) {
     document.getElementById('game-ff')?.classList.toggle('active', gameType === 'ff');
     document.getElementById('game-pubg')?.classList.toggle('active', gameType === 'pubg');
     
     selectedGame = gameType === 'ff' ? 'Free Fire' : 'PUBG Mobile';
     renderPackages(gameType);
-}
+};
 
-// 📌 USER "CHECK ID" BOSGANDA TELEGRAMGA HABAR BORADI
-async function requestCheckId() {
+// Player ID ni Telegram'ga yuborish (Check ID)
+window.requestCheckId = async function() {
     const playerId = document.getElementById('player-id')?.value.trim();
     const statusBox = document.getElementById('nickname-status');
 
@@ -46,17 +52,60 @@ async function requestCheckId() {
     if (statusBox) {
         statusBox.style.background = "#3b2a1a";
         statusBox.style.color = "#ffc107";
-        statusBox.innerHTML = `⏳ <b>ID: ${playerId}</b> tekshirish uchun yuborildi. Botingiz orqali tekshirilmoqda...`;
+        statusBox.innerHTML = `⏳ <b>ID: ${playerId}</b> tekshirish uchun Telegram botga yuborildi...`;
     }
 
-    // Telegram Admin'ga xabar yuborish
-    const msg = `🔍 *PLAYER ID TEKSHIRISH SO'ROVI*%0A%0A🎮 *O'yin:* ${selectedGame}%0A🆔 *Player ID:* \`${playerId}\`%0A%0A_Iltimos, Top-up Center'dan Nickname'ni ko'rib javob bering!_`;
+    const message = `🔍 *PLAYER ID TEKSHIRISH SO'ROVI*\n\n🎮 *O'yin:* ${selectedGame}\n🆔 *Player ID:* \`${playerId}\``;
 
     try {
-        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${msg}&parse_mode=Markdown`);
-    } catch (e) {}
-}
+        await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'Markdown'
+            })
+        });
 
+        setTimeout(() => {
+            if (statusBox) {
+                statusBox.style.background = "#1a3322";
+                statusBox.style.color = "#28a745";
+                statusBox.innerHTML = `✔️ ID admin botiga yuborildi. Buyurtma berishingiz mumkin!`;
+            }
+        }, 1000);
+
+    } catch(e) {
+        if (statusBox) {
+            statusBox.style.background = "#3b1a1a";
+            statusBox.style.color = "#dc3545";
+            statusBox.innerHTML = `❌ Xatolik yuz berdi! Internetni tekshiring.`;
+        }
+    }
+};
+
+// Omad Barabani
+window.spinWheel = function() {
+    const wheel = document.getElementById('wheel');
+    const resultText = document.getElementById('bonus-result');
+    const bonusDisplay = document.getElementById('bonus-display');
+
+    const prizes = ['+10 Diamant', '+50 Diamant', '+100 Diamant', '+20 Diamant', '+200 Diamant', 'Weekly Pass'];
+    const randomDegree = Math.floor(1800 + Math.random() * 360);
+    
+    if (wheel) wheel.style.transform = `rotate(${randomDegree}deg)`;
+
+    setTimeout(() => {
+        const prizeIndex = Math.floor(Math.random() * prizes.length);
+        wonBonus = prizes[prizeIndex];
+
+        if (resultText) resultText.innerHTML = `🎉 Tabriklaymiz! Siz <b>${wonBonus}</b> bonus yutdingiz!`;
+        if (bonusDisplay) bonusDisplay.innerText = `🎁 Bonus: ${wonBonus}`;
+    }, 4000);
+};
+
+// Paketlarni chiqarish
 function renderPackages(gameType) {
     const container = document.getElementById('package-container');
     if (!container) return;
@@ -68,7 +117,8 @@ function renderPackages(gameType) {
         const card = document.createElement('div');
         card.className = `item-card ${index === 0 ? 'active' : ''}`;
         card.innerHTML = `
-            <img src="${item.img}" alt="icon">
+            ${item.tag ? `<span class="badge-bonus">${item.tag}</span>` : ''}
+            <img src="${item.img}" alt="pack">
             <h3>${item.name}</h3>
             <p>${item.price}</p>
         `;
@@ -92,12 +142,14 @@ function renderPackages(gameType) {
 }
 
 function updateSummary() {
-    document.getElementById('selected-item-display').innerText = selectedPackage;
-    document.getElementById('selected-price-display').innerText = selectedPrice;
+    const itemDisp = document.getElementById('selected-item-display');
+    const priceDisp = document.getElementById('selected-price-display');
+    if (itemDisp) itemDisp.innerText = selectedPackage;
+    if (priceDisp) priceDisp.innerText = selectedPrice;
 }
 
-// Buyurtma berish
-async function processOrder() {
+// Buyurtma Yuborish (Buy Now)
+window.processOrder = async function() {
     const playerId = document.getElementById('player-id')?.value.trim();
 
     if (!playerId) {
@@ -105,19 +157,31 @@ async function processOrder() {
         return;
     }
 
-    const message = `🛒 *YANGI BUYURTMA (GamePayUZB)*%0A%0A🎮 *O'yin:* ${selectedGame}%0A🆔 *Player ID:* \`${playerId}\`%0A💎 *Paket:* ${selectedPackage}%0A💰 *Narxi:* ${selectedPrice}`;
+    const message = `🛒 *YANGI BUYURTMA (GamePayUZB)*\n\n🎮 *O'yin:* ${selectedGame}\n🆔 *Player ID:* \`${playerId}\`\n💎 *Paket:* ${selectedPackage}\n💰 *Narxi:* ${selectedPrice}\n🎁 *Bonus:* ${wonBonus}`;
 
     try {
-        const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${message}&parse_mode=Markdown`);
-        const data = await res.json();
+        const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'Markdown'
+            })
+        });
 
+        const data = await res.json();
         if (data.ok) {
-            alert(`Buyurtmangiz qabul qilindi!\n\nPlayer ID: ${playerId}\nPaket: ${selectedPackage}`);
+            alert(`Buyurtmangiz qabul qilindi!\n\nPlayer ID: ${playerId}\nPaket: ${selectedPackage}\nBonus: ${wonBonus}`);
         }
     } catch (err) {
         alert("Xatolik yuz berdi!");
     }
-}
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    renderPackages('ff');
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     renderPackages('ff');
