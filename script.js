@@ -7,7 +7,7 @@ let selectedPackage = '100 + 100 Bonus';
 let selectedPrice = '13,000 UZS';
 let wonBonus = 'Yo\'q';
 
-// Paketlar (Free Fire va PUBG Mobile)
+// TO'LIQ PAKETLAR RO'YXATI VA BARCHA RASMLAR
 const packagesData = {
     ff: [
         { name: '100 + 100 Bonus', price: '13,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/8146/8146767.png', tag: 'BONUS' },
@@ -16,8 +16,8 @@ const packagesData = {
         { name: '1060 Diamant', price: '125,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2855/2855589.png', tag: 'CHEST' },
         { name: '2180 Diamant', price: '250,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/616/616490.png', tag: 'VAULT' },
         { name: '5600 Diamant', price: '610,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3514/3514242.png', tag: 'BIG VAULT' },
-        { name: 'Weekly Pass', price: '25,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543332.png', tag: 'PASS' },
-        { name: 'Monthly Pass', price: '110,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543206.png', tag: 'VIP PASS' }
+        { name: 'Weekly Pass (Haftalik)', price: '25,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543332.png', tag: 'VAUCHER' },
+        { name: 'Monthly Pass (Oylik)', price: '110,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543206.png', tag: 'VIP VAUCHER' }
     ],
     pubg: [
         { name: '60 UC', price: '14,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/9378/9378276.png', tag: '60 UC' },
@@ -26,11 +26,11 @@ const packagesData = {
         { name: '1800 UC', price: '330,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2855/2855589.png', tag: '1500+300 UC' },
         { name: '3850 UC', price: '650,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/616/616490.png', tag: '3000+850 UC' },
         { name: '8100 UC', price: '1,320,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3514/3514242.png', tag: '6000+2100 UC' },
-        { name: 'Royale Pass Pack', price: '110,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543332.png', tag: 'RP' }
+        { name: 'Royale Pass Pack', price: '110,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543332.png', tag: 'RP VAUCHER' }
     ]
 };
 
-// O'yinni tanlash
+// O'yinni tanlash (Free Fire / PUBG Mobile)
 window.selectGame = function(gameType) {
     document.getElementById('game-ff')?.classList.toggle('active', gameType === 'ff');
     document.getElementById('game-pubg')?.classList.toggle('active', gameType === 'pubg');
@@ -105,7 +105,7 @@ window.spinWheel = function() {
     }, 4000);
 };
 
-// Paketlarni chiqarish
+// Paketlarni ekranga chiroyli chiqarish (Rasmlar va Taglar bilan)
 function renderPackages(gameType) {
     const container = document.getElementById('package-container');
     if (!container) return;
@@ -118,7 +118,7 @@ function renderPackages(gameType) {
         card.className = `item-card ${index === 0 ? 'active' : ''}`;
         card.innerHTML = `
             ${item.tag ? `<span class="badge-bonus">${item.tag}</span>` : ''}
-            <img src="${item.img}" alt="pack">
+            <img src="${item.img}" alt="${item.name}">
             <h3>${item.name}</h3>
             <p>${item.price}</p>
         `;
@@ -178,10 +178,6 @@ window.processOrder = async function() {
         alert("Xatolik yuz berdi!");
     }
 };
-
-document.addEventListener('DOMContentLoaded', () => {
-    renderPackages('ff');
-});
 
 document.addEventListener('DOMContentLoaded', () => {
     renderPackages('ff');
