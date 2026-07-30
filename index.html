@@ -5,61 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GamePayUZB - Official Top Up Center</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#e50914">
 </head>
 <body>
 
-    <!-- Top Navbar -->
+    <!-- Header -->
     <header class="navbar">
         <div class="logo">
             <span class="brand-red">GamePay</span><span class="brand-dark">UZB</span>
-            <span class="divider">|</span>
-            <span class="site-title">Official Top Up Center</span>
         </div>
-        <div class="user-region">UZB | UZS</div>
+        <div class="user-region">🇺🇿 UZB | UZS</div>
     </header>
 
-    <!-- Hero Banner -->
+    <!-- Banner -->
     <div class="hero-banner">
         <h2>GAMEPAYUZB TOP UP CENTER</h2>
-        <p>100% Safe & Secure Payment</p>
+        <p>Rasmiy va Tezkor O'yin Valyutalari Dükoni</p>
     </div>
 
     <main class="main-container">
 
-        <!-- 1. Game Selection -->
+        <!-- 1. Select Game -->
         <section class="section-container">
-            <h2>1. Select Game</h2>
+            <h2 class="section-title">1. O'yinni tanlang</h2>
             <div class="game-select-grid">
-                <button type="button" id="game-ff" class="game-btn active" onclick="selectGame('ff')">Free Fire</button>
-                <button type="button" id="game-pubg" class="game-btn" onclick="selectGame('pubg')">PUBG Mobile</button>
+                <div id="game-ff" class="game-card active" onclick="selectGame('ff')">
+                    <img src="https://img.icons8.com/color/96/free-fire.png" alt="Free Fire">
+                    <span>Free Fire</span>
+                </div>
+                <div id="game-pubg" class="game-card" onclick="selectGame('pubg')">
+                    <img src="https://img.icons8.com/color/96/pubg.png" alt="PUBG Mobile">
+                    <span>PUBG Mobile</span>
+                </div>
             </div>
         </section>
 
-        <!-- 2. Login (Player ID) -->
-       <!-- 2. Login (Player ID) -->
+        <!-- 2. Enter Player ID -->
         <section class="section-container">
-            <h2>2. Enter Player ID</h2>
-            <div class="input-group" style="display: flex; gap: 10px;">
-                <input type="text" id="player-id" placeholder="Enter Player ID (e.g. 123456789)" style="flex: 1;">
-                <button type="button" onclick="checkPlayerId()" style="background: #e50914; color: white; border: none; padding: 0 15px; border-radius: 6px; cursor: pointer; font-weight: bold;">Check ID</button>
+            <h2 class="section-title">2. Player ID kiriting</h2>
+            <div class="id-input-box">
+                <input type="text" id="player-id" placeholder="Masalan: 9775793347">
+                <button type="button" class="check-btn" onclick="requestCheckId()">Check ID</button>
             </div>
-            <!-- Nickname shu yerda chiqadi -->
-            <div id="nickname-status" style="margin-top: 8px; font-size: 14px; font-weight: bold;"></div>
+            <div id="nickname-status" class="status-box"></div>
         </section>
 
-        <!-- 3. Top-up Packages -->
+        <!-- 3. Select Package -->
         <section class="section-container">
-            <h2>3. Select Package</h2>
+            <h2 class="section-title">3. Paketni tanlang</h2>
             <div id="package-container" class="package-grid">
-                <!-- Paketlar JS orqali avtomatik keladi -->
+                <!-- Paketlar va rasmlar JS'dan keladi -->
             </div>
         </section>
 
     </main>
 
-    <!-- Footer Checkout Bar -->
+    <!-- Checkout Bar (Pastki qism) -->
     <div class="checkout-bar">
         <div class="selected-summary">
             <span id="selected-item-display">100 Diamant</span>
