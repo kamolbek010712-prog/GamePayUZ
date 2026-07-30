@@ -1,279 +1,184 @@
-* { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0; 
-  font-family: Arial, sans-serif; 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-body { 
-  background-color: #f4f4f6; 
-  color: #333; 
-  padding-bottom: 90px; 
+body {
+    background-color: #121214;
+    color: #ffffff;
+    padding-bottom: 90px;
 }
 
-/* Navbar Header */
-.navbar { 
-  background: #fff; 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  padding: 12px 60px; 
-  border-bottom: 1px solid #ddd; 
+.navbar {
+    background: #1b1b1e;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e50914;
 }
 
-.brand-red { 
-  color: #e50914; 
-  font-weight: bold; 
-  font-size: 22px; 
+.brand-red { color: #e50914; font-weight: bold; font-size: 22px; }
+.brand-dark { color: #fff; font-weight: bold; font-size: 22px; }
+
+.hero-banner {
+    background: linear-gradient(135deg, #e50914, #800000);
+    text-align: center;
+    padding: 25px 15px;
+    margin-bottom: 20px;
 }
 
-.brand-dark { 
-  color: #111; 
-  font-weight: bold; 
-  font-size: 22px; 
+.hero-banner h2 { font-size: 20px; text-transform: uppercase; letter-spacing: 1px; }
+.hero-banner p { font-size: 13px; opacity: 0.9; margin-top: 5px; }
+
+.main-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 12px;
 }
 
-.divider { 
-  color: #ccc; 
-  margin: 0 10px; 
+.section-container {
+    background: #1e1e24;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+    border: 1px solid #2a2a32;
 }
 
-.site-title { 
-  font-weight: 600; 
-  color: #555; 
+.section-title {
+    font-size: 16px;
+    margin-bottom: 15px;
+    color: #e50914;
+    border-left: 4px solid #e50914;
+    padding-left: 8px;
 }
 
-.user-region { 
-  font-weight: bold; 
-  font-size: 14px; 
-  color: #e50914; 
+/* 1. Game Grid */
+.game-select-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-/* Hero Banner */
-.hero-banner { 
-  background: #111; 
-  color: #fff; 
-  text-align: center; 
-  padding: 25px 0; 
-  border-bottom: 3px solid #e50914; 
+.game-card {
+    background: #2b2b36;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.hero-banner h2 { 
-  color: #ffcc00; 
-  letter-spacing: 1px; 
-  margin-bottom: 5px; 
+.game-card img { width: 50px; height: 50px; margin-bottom: 8px; }
+.game-card span { font-weight: bold; font-size: 14px; }
+
+.game-card.active {
+    border-color: #e50914;
+    background: #362226;
 }
 
-/* Main Container */
-.main-container { 
-  max-width: 900px; 
-  margin: 20px auto; 
-  padding: 0 15px; 
+/* 2. ID Input */
+.id-input-box {
+    display: flex;
+    gap: 8px;
 }
 
-.section-container { 
-  background: #fff; 
-  border-radius: 8px; 
-  padding: 20px; 
-  margin-bottom: 20px; 
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+.id-input-box input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #3a3a46;
+    background: #121214;
+    color: #fff;
+    font-size: 15px;
 }
 
-/* Steps */
-.step-header { 
-  font-size: 18px; 
-  font-weight: bold; 
-  margin-bottom: 15px; 
-  display: flex; 
-  align-items: center; 
+.check-btn {
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 0 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
-.step-num { 
-  background: #e50914; 
-  color: #fff; 
-  width: 24px; 
-  height: 24px; 
-  border-radius: 4px; 
-  display: inline-flex; 
-  align-items: center; 
-  justify-content: center; 
-  margin-right: 8px; 
-  font-size: 14px; 
+.status-box {
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 8px;
+    border-radius: 6px;
 }
 
-/* Game Grid */
-.game-grid { 
-  display: flex; 
-  gap: 15px; 
+/* 3. Package Grid */
+.package-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 10px;
 }
 
-.game-item { 
-  border: 2px solid #eee; 
-  border-radius: 8px; 
-  padding: 10px 20px; 
-  cursor: pointer; 
-  display: flex; 
-  align-items: center; 
-  gap: 10px; 
-  font-weight: bold; 
+.item-card {
+    background: #2b2b36;
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 12px 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.game-item.active { 
-  border-color: #e50914; 
-  background: #fff5f5; 
+.item-card img {
+    width: 38px;
+    height: 38px;
+    margin-bottom: 6px;
 }
 
-/* Login Box */
-.input-group { 
-  display: flex; 
-  gap: 10px; 
-  margin-top: 8px; 
+.item-card h3 { font-size: 12px; margin-bottom: 4px; color: #ffffff; }
+.item-card p { font-size: 11px; color: #ff3333; font-weight: bold; }
+
+.item-card.active {
+    border-color: #28a745;
+    background: #1a3322;
 }
 
-.input-group input { 
-  flex: 1; 
-  padding: 12px; 
-  border: 1px solid #ccc; 
-  border-radius: 4px; 
-  font-size: 15px; 
+/* Checkout Bar */
+.checkout-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #1b1b1e;
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 2px solid #333;
+    z-index: 100;
 }
 
-.login-btn { 
-  background: #e50914; 
-  color: #fff; 
-  border: none; 
-  padding: 10px 25px; 
-  border-radius: 4px; 
-  cursor: pointer; 
-  font-weight: bold; 
+.selected-summary {
+    display: flex;
+    flex-direction: column;
 }
 
-/* Items Grid */
-.items-grid, .special-grid { 
-  display: grid; 
-  grid-template-columns: repeat(3, 1fr); 
-  gap: 12px; 
-}
+.selected-summary span { font-size: 13px; color: #aaa; }
+.selected-summary strong { font-size: 16px; color: #28a745; }
 
-.item-card { 
-  border: 1px solid #ddd; 
-  border-radius: 6px; 
-  padding: 15px; 
-  text-align: center; 
-  cursor: pointer; 
-  font-weight: bold; 
-  background: #fff; 
-  display: flex; 
-  flex-direction: column; 
-  gap: 5px; 
-}
-
-.item-card.active { 
-  border: 2px solid #e50914; 
-  color: #e50914; 
-  background: #fff0f0; 
-}
-
-.special-deals-title { 
-  font-weight: bold; 
-  margin: 20px 0 10px; 
-  font-size: 16px; 
-}
-
-/* Bottom Bar */
-.checkout-bar { 
-  position: fixed; 
-  bottom: 0; 
-  left: 0; 
-  width: 100%; 
-  background: #fff; 
-  border-top: 1px solid #ccc; 
-  padding: 15px 60px; 
-  display: flex; 
-  justify-content: flex-end; 
-  align-items: center; 
-  gap: 20px; 
-  z-index: 100; 
-}
-
-.selected-summary { 
-  text-align: right; 
-}
-
-.selected-summary strong { 
-  color: #e50914; 
-  font-size: 20px; 
-  display: block; 
-}
-
-.buy-now-btn { 
-  background: #e50914; 
-  color: #fff; 
-  border: none; 
-  padding: 12px 35px; 
-  border-radius: 4px; 
-  font-weight: bold; 
-  font-size: 16px; 
-  cursor: pointer; 
-}
-
-/* Baraban Modal */
-.modal { 
-  display: none; 
-  position: fixed; 
-  top: 0; 
-  left: 0; 
-  width: 100%; 
-  height: 100%; 
-  background: rgba(0,0,0,0.8); 
-  justify-content: center; 
-  align-items: center; 
-  z-index: 999; 
-}
-
-.modal-content { 
-  background: #fff; 
-  padding: 25px; 
-  border-radius: 12px; 
-  text-align: center; 
-  position: relative; 
-  width: 350px; 
-}
-
-.wheel-box { 
-  position: relative; 
-  width: 250px; 
-  height: 250px; 
-  margin: 20px auto; 
-}
-
-.wheel { 
-  width: 100%; 
-  height: 100%; 
-  border-radius: 50%; 
-  border: 5px solid #e50914; 
-  position: relative; 
-  overflow: hidden; 
-  transition: transform 4s ease-out; 
-}
-
-.pointer { 
-  position: absolute; 
-  top: -10px; 
-  left: 50%; 
-  transform: translateX(-50%); 
-  font-size: 24px; 
-  color: #e50914; 
-  z-index: 10; 
-}
-
-.spin-btn { 
-  background: #28a745; 
-  color: white; 
-  border: none; 
-  padding: 12px 25px; 
-  font-weight: bold; 
-  border-radius: 6px; 
-  cursor: pointer; 
-  font-size: 16px; 
+.buy-now-btn {
+    background: #28a745;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
 }
