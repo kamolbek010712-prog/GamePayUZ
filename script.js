@@ -1,17 +1,13 @@
-// ==========================================
-// 1. TELEGRAM BOT SOZLAMALARI
-// ==========================================
+// Telegram Bot Sozlamalari
 const TELEGRAM_BOT_TOKEN = '8908906277:AAHc3SFpNAu3gnC7JLLyWp59OXwMZaQn508'; 
 const TELEGRAM_CHAT_ID = '93372553';     
 
-// Boshlang'ich holat
+// Boshlang'ich tanlovlar
 let selectedGame = 'Free Fire';
 let selectedPackage = '100 Diamant';
 let selectedPrice = '13,000 UZS';
 
-// ==========================================
-// 2. O'YINLAR VA PAKETLAR RO'YXATI (NARXLAR)
-// ==========================================
+// O'yinlar va Ularning Narxlari Ro'yxati
 const packagesData = {
     ff: [
         { name: '100 Diamant', price: '13,000 UZS' },
@@ -33,76 +29,89 @@ const packagesData = {
     ]
 };
 
-// O'yin almashganda paketlarni ekranga chiqarish
+// O'yinni o'zgartirish (FF va PUBG)
 function selectGame(gameType) {
-    const container = document.querySelector('.package-grid')  document.querySelector('.section-container');
+    const ffBtn = document.getElementById('game-ff');
+    const pubgBtn = document.getElementById('game-pubg');
     
     if (gameType === 'ff') {
         selectedGame = 'Free Fire';
-    } else {
+        if (ffBtn) ffBtn.classList.add('active');
+        if (pubgBtn) pubgBtn.classList.remove('active');
+    } else if (gameType === 'pubg') {
         selectedGame = 'PUBG Mobile';
+        if (pubgBtn) pubgBtn.classList.add('active');
+        if (ffBtn) ffBtn.classList.remove('active');
     }
 
-    // Odatiy birinchi elementni tanlab qo'yish
+    renderPackages(gameType);
+}
+
+// Tanlangan o'yinga qarab paketlarni ekranga chiqarish
+function renderPackages(gameType) {
+    const container = document.getElementById('package-container');
+    if (!container) return;
+
+    container.innerHTML = '';
     const list = packagesData[gameType];
-    if (list && list.length > 0) {
+
+    list.forEach((item, index) => {
+        const card = document.createElement('div');
+        card.className = `item-card ${index === 0 ? 'active' : ''}`;
+        card.innerHTML = `
+            <h3>${item.name}</h3>
+            <p>${item.price}</p>
+        `;
+
+        card.addEventListener('click', () => {
+            document.querySelectorAll('.item-card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            
+            selectedPackage = item.name;
+            selectedPrice = item.price;
+            updateSummary();
+        });
+
+        container.appendChild(card);
+    });
+
+    // Boshlang'ich birinchi elementni tanlab qo'yish
+    if (list.length > 0) {
         selectedPackage = list[0].name;
         selectedPrice = list[0].price;
         updateSummary();
     }
 }
 
-// Pastki panelda tanlangan paket va narxni ko'rsatish
+// Chek panelida narxni yangilash
 function updateSummary() {
-    const displayItem = document.getElementById('selected-item-display')  document.querySelector('.selected-summary span');
-    const displayPrice = document.getElementById('selected-price-display')  document.querySelector('.selected-summary strong');
+    const displayItem = document.getElementById('selected-item-display');
+    const displayPrice = document.getElementById('selected-price-display');
 
     if (displayItem) displayItem.innerText = selectedPackage;
     if (displayPrice) displayPrice.innerText = selectedPrice;
 }
 
-// Card bosilganda paket va narxni tutib olish
-document.addEventListener('DOMContentLoaded', () => {
-    document.body.addEventListener('click', (e) => {
-        const card = e.target.closest('.item-card');
-        if (card) {
-            document.querySelectorAll('.item-card').forEach(c => c.classList.remove('active'));
-            card.classList.add('active');
-
-            // Card ichidagi yozuvlardan paket nomi va narxini ajratib olish
-            const lines = card.innerText.split('\n').filter(t => t.trim() !== '');
-            if (lines.length >= 2) {
-                selectedPackage = lines[0].trim();
-                selectedPrice = lines[1].trim();
-            } else if (lines.length === 1) {
-                selectedPackage = lines[0].trim();
-            }
-
-            updateSummary();
-        }
-    });
-});
-
-// ==========================================
-// 3. BUYNOW - BOTGA YUBORISH
-// ==========================================
+// Buyurtmani botga yuborish
 async function processOrder() {
-    const playerIdInput = document.getElementById('player-id')  document.querySelector('.input-group input');
+    const playerIdInput = document.getElementById('player-id');
     const playerId = playerIdInput ? playerIdInput.value.trim() : '';
 
     if (!playerId) {
-        alert("Iltimos, avval Player ID kiriting!");
+        alert("Iltimos, avval Player ID kiriting va Login tugmasini bosing!");
         return;
     }
 
-    const message = 🛒 *YANGI BUYURTMA (GamePayUZB)*%0A%0A🎮 *O'yin:* ${selectedGame}%0A🆔 *Player ID:* \${playerId}\%0A💎 *Paket:* ${selectedPackage}%0A💰 *Narxi:* ${selectedPrice};
+    const message = `🛒 *YANGI BUYURTMA (GamePayUZB)*%0A%0A🎮 *O'yin:* ${selectedGame}%0A🆔 *Player ID:* \`${playerId}\`%0A💎 *Paket:* ${selectedPackage}%0A💰 *Narxi:* ${selectedPrice}`;
 
     try {
-        const url = https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${message}&parse_mode=Markdown;
+        const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${message}&parse_mode=Markdown`;
         
         const res = await fetch(url);
-        const data = await res.json();if (data.ok) {
-            alert(Buyurtmangiz qabul qilindi!\n\nO'yin: ${selectedGame}\nPaket: ${selectedPackage}\nNarxi: ${selectedPrice});
+        const data = await res.json();
+
+        if (data.ok) {
+            alert(`Buyurtmangiz qabul qilindi!\n\nO'yin: ${selectedGame}\nPaket: ${selectedPackage}\nNarxi: ${selectedPrice}`);
         } else {
             alert("Xatolik: Bot Token yoki Chat ID xato kiritilgan.");
         }
@@ -110,3 +119,8 @@ async function processOrder() {
         alert("Internet ulanishida xatolik yuz berdi!");
     }
 }
+
+// Boshlang'ich yuklanish
+document.addEventListener('DOMContentLoaded', () => {
+    renderPackages('ff');
+});
