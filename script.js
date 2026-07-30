@@ -7,26 +7,101 @@ let selectedPackage = '100 + 100 Bonus';
 let selectedPrice = '13,000 UZS';
 let wonBonus = 'Yo\'q';
 
-// PAKETLAR RO'YXATI VA RASMLARI
+// HAR BIR PAKET UCHUN ALOHIDA CHIROYLI 3D RASMLAR
 const packagesData = {
     ff: [
-        { name: '100 + 100 Bonus', price: '13,000 UZS', img: 'https://img.icons8.com/3d-fluency/94/diamond.png', tag: 'BONUS' },
-        { name: '310 + 310 Bonus', price: '38,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/8146/8146767.png', tag: 'BONUS' },
-        { name: '520 + 520 Bonus', price: '63,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3081/3081840.png', tag: 'POPULAR' },
-        { name: '1060 Diamant', price: '125,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2855/2855589.png', tag: 'CHEST' },
-        { name: '2180 Diamant', price: '250,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/616/616490.png', tag: 'VAULT' },
-        { name: '5600 Diamant', price: '610,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3514/3514242.png', tag: 'BIG VAULT' },
-        { name: 'Weekly Pass (Haftalik)', price: '25,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/9378/9378276.png', tag: 'WEEKLY' },
-        { name: 'Monthly Pass (Oylik)', price: '110,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543206.png', tag: 'MONTHLY' }
+        { 
+            name: '100 + 100 Bonus', 
+            price: '13,000 UZS', 
+            img: 'https://img.icons8.com/3d-fluency/94/diamond.png', 
+            tag: 'BONUS' 
+        },
+        { 
+            name: '310 + 310 Bonus', 
+            price: '38,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/8146/8146767.png', 
+            tag: 'BONUS' 
+        },
+        { 
+            name: '520 + 520 Bonus', 
+            price: '63,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/3081/3081840.png', 
+            tag: 'POPULAR' 
+        },
+        { 
+            name: '1060 Diamant', 
+            price: '125,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/2855/2855589.png', 
+            tag: 'CHEST' 
+        },
+        { 
+            name: '2180 Diamant', 
+            price: '250,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/616/616490.png', 
+            tag: 'VAULT' 
+        },
+        { 
+            name: '5600 Diamant', 
+            price: '610,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/3514/3514242.png', 
+            tag: 'BIG VAULT' 
+        },
+        { 
+            name: 'Weekly Pass (Haftalik)', 
+            price: '25,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/2543/2543332.png', 
+            tag: 'WEEKLY' 
+        },
+        { 
+            name: 'Monthly Pass (Oylik)', 
+            price: '110,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/2543/2543206.png', 
+            tag: 'MONTHLY' 
+        }
     ],
     pubg: [
-        { name: '60 UC', price: '14,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/9378/9378276.png', tag: '60 UC' },
-        { name: '325 UC', price: '65,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3081/3081840.png', tag: '300+25 UC' },
-        { name: '660 UC', price: '128,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2855/2855622.png', tag: '600+60 UC' },
-        { name: '1800 UC', price: '330,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2855/2855589.png', tag: '1500+300 UC' },
-        { name: '3850 UC', price: '650,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/616/616490.png', tag: '3000+850 UC' },
-        { name: '8100 UC', price: '1,320,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/3514/3514242.png', tag: '6000+2100 UC' },
-        { name: 'Royale Pass Pack', price: '110,000 UZS', img: 'https://cdn-icons-png.flaticon.com/512/2543/2543332.png', tag: 'RP VAUCHER' }
+        { 
+            name: '60 UC', 
+            price: '14,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/9378/9378276.png', 
+            tag: '60 UC' 
+        },
+        { 
+            name: '325 UC', 
+            price: '65,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/3081/3081840.png', 
+            tag: '300+25 UC' 
+        },
+        { 
+            name: '660 UC', 
+            price: '128,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/2855/2855622.png', 
+            tag: '600+60 UC' 
+        },
+        { 
+            name: '1800 UC', 
+            price: '330,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/2855/2855589.png', 
+            tag: '1500+300 UC' 
+        },
+        { 
+            name: '3850 UC', 
+            price: '650,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/616/616490.png', 
+            tag: '3000+850 UC' 
+        },
+        { 
+            name: '8100 UC', 
+            price: '1,320,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/3514/3514242.png', 
+            tag: '6000+2100 UC' 
+        },
+        { 
+            name: 'Royale Pass Pack', 
+            price: '110,000 UZS', 
+            img: 'https://cdn-icons-png.flaticon.com/512/2543/2543332.png', 
+            tag: 'RP VAUCHER' 
+        }
     ]
 };
 
@@ -39,7 +114,7 @@ window.selectGame = function(gameType) {
     renderPackages(gameType);
 };
 
-// Player ID ni Telegram'ga HAVOLA (SSILKA) bilan bir zumda yuborish
+// Player ID ni Telegram'ga HAVOLA (SSILKA) bilan yuborish
 window.requestCheckId = async function() {
     const playerId = document.getElementById('player-id')?.value.trim();
     const statusBox = document.getElementById('nickname-status');
@@ -49,14 +124,12 @@ window.requestCheckId = async function() {
         return;
     }
 
-    // Ekranda kutish xabarini chiqarish
     if (statusBox) {
         statusBox.style.background = "#3b2a1a";
         statusBox.style.color = "#ffc107";
         statusBox.innerHTML = `⏳ <b>ID: ${playerId}</b> Telegram botga yuborilmoqda...`;
     }
 
-    // O'yinga qarab tekshiruv havolasini tayyorlash
     const checkUrl = selectedGame === 'Free Fire' 
         ? `https://shop2game.com/` 
         : `https://www.midasbuy.com/`;
