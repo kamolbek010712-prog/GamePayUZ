@@ -1,0 +1,20 @@
+{
+  "name": "GamePayUZB Top Up",
+  "short_name": "GamePayUZB",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111111",
+  "theme_color": "#e50914",
+  "icons": [
+    {
+      "src": "https://via.placeholder.com/192/e50914/ffffff?text=GamePay",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://via.placeholder.com/512/e50914/ffffff?text=GamePay",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
