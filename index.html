@@ -38,11 +38,15 @@
         </section>
 
         <!-- 2. Login (Player ID) -->
+       <!-- 2. Login (Player ID) -->
         <section class="section-container">
             <h2>2. Enter Player ID</h2>
-            <div class="input-group">
-                <input type="text" id="player-id" placeholder="Enter Player ID (e.g. 123456789)">
+            <div class="input-group" style="display: flex; gap: 10px;">
+                <input type="text" id="player-id" placeholder="Enter Player ID (e.g. 123456789)" style="flex: 1;">
+                <button type="button" onclick="checkPlayerId()" style="background: #e50914; color: white; border: none; padding: 0 15px; border-radius: 6px; cursor: pointer; font-weight: bold;">Check ID</button>
             </div>
+            <!-- Nickname shu yerda chiqadi -->
+            <div id="nickname-status" style="margin-top: 8px; font-size: 14px; font-weight: bold;"></div>
         </section>
 
         <!-- 3. Top-up Packages -->
