@@ -1,0 +1,279 @@
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+  font-family: Arial, sans-serif; 
+}
+
+body { 
+  background-color: #f4f4f6; 
+  color: #333; 
+  padding-bottom: 90px; 
+}
+
+/* Navbar Header */
+.navbar { 
+  background: #fff; 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  padding: 12px 60px; 
+  border-bottom: 1px solid #ddd; 
+}
+
+.brand-red { 
+  color: #e50914; 
+  font-weight: bold; 
+  font-size: 22px; 
+}
+
+.brand-dark { 
+  color: #111; 
+  font-weight: bold; 
+  font-size: 22px; 
+}
+
+.divider { 
+  color: #ccc; 
+  margin: 0 10px; 
+}
+
+.site-title { 
+  font-weight: 600; 
+  color: #555; 
+}
+
+.user-region { 
+  font-weight: bold; 
+  font-size: 14px; 
+  color: #e50914; 
+}
+
+/* Hero Banner */
+.hero-banner { 
+  background: #111; 
+  color: #fff; 
+  text-align: center; 
+  padding: 25px 0; 
+  border-bottom: 3px solid #e50914; 
+}
+
+.hero-banner h2 { 
+  color: #ffcc00; 
+  letter-spacing: 1px; 
+  margin-bottom: 5px; 
+}
+
+/* Main Container */
+.main-container { 
+  max-width: 900px; 
+  margin: 20px auto; 
+  padding: 0 15px; 
+}
+
+.section-container { 
+  background: #fff; 
+  border-radius: 8px; 
+  padding: 20px; 
+  margin-bottom: 20px; 
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05); 
+}
+
+/* Steps */
+.step-header { 
+  font-size: 18px; 
+  font-weight: bold; 
+  margin-bottom: 15px; 
+  display: flex; 
+  align-items: center; 
+}
+
+.step-num { 
+  background: #e50914; 
+  color: #fff; 
+  width: 24px; 
+  height: 24px; 
+  border-radius: 4px; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center; 
+  margin-right: 8px; 
+  font-size: 14px; 
+}
+
+/* Game Grid */
+.game-grid { 
+  display: flex; 
+  gap: 15px; 
+}
+
+.game-item { 
+  border: 2px solid #eee; 
+  border-radius: 8px; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  display: flex; 
+  align-items: center; 
+  gap: 10px; 
+  font-weight: bold; 
+}
+
+.game-item.active { 
+  border-color: #e50914; 
+  background: #fff5f5; 
+}
+
+/* Login Box */
+.input-group { 
+  display: flex; 
+  gap: 10px; 
+  margin-top: 8px; 
+}
+
+.input-group input { 
+  flex: 1; 
+  padding: 12px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  font-size: 15px; 
+}
+
+.login-btn { 
+  background: #e50914; 
+  color: #fff; 
+  border: none; 
+  padding: 10px 25px; 
+  border-radius: 4px; 
+  cursor: pointer; 
+  font-weight: bold; 
+}
+
+/* Items Grid */
+.items-grid, .special-grid { 
+  display: grid; 
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 12px; 
+}
+
+.item-card { 
+  border: 1px solid #ddd; 
+  border-radius: 6px; 
+  padding: 15px; 
+  text-align: center; 
+  cursor: pointer; 
+  font-weight: bold; 
+  background: #fff; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 5px; 
+}
+
+.item-card.active { 
+  border: 2px solid #e50914; 
+  color: #e50914; 
+  background: #fff0f0; 
+}
+
+.special-deals-title { 
+  font-weight: bold; 
+  margin: 20px 0 10px; 
+  font-size: 16px; 
+}
+
+/* Bottom Bar */
+.checkout-bar { 
+  position: fixed; 
+  bottom: 0; 
+  left: 0; 
+  width: 100%; 
+  background: #fff; 
+  border-top: 1px solid #ccc; 
+  padding: 15px 60px; 
+  display: flex; 
+  justify-content: flex-end; 
+  align-items: center; 
+  gap: 20px; 
+  z-index: 100; 
+}
+
+.selected-summary { 
+  text-align: right; 
+}
+
+.selected-summary strong { 
+  color: #e50914; 
+  font-size: 20px; 
+  display: block; 
+}
+
+.buy-now-btn { 
+  background: #e50914; 
+  color: #fff; 
+  border: none; 
+  padding: 12px 35px; 
+  border-radius: 4px; 
+  font-weight: bold; 
+  font-size: 16px; 
+  cursor: pointer; 
+}
+
+/* Baraban Modal */
+.modal { 
+  display: none; 
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  background: rgba(0,0,0,0.8); 
+  justify-content: center; 
+  align-items: center; 
+  z-index: 999; 
+}
+
+.modal-content { 
+  background: #fff; 
+  padding: 25px; 
+  border-radius: 12px; 
+  text-align: center; 
+  position: relative; 
+  width: 350px; 
+}
+
+.wheel-box { 
+  position: relative; 
+  width: 250px; 
+  height: 250px; 
+  margin: 20px auto; 
+}
+
+.wheel { 
+  width: 100%; 
+  height: 100%; 
+  border-radius: 50%; 
+  border: 5px solid #e50914; 
+  position: relative; 
+  overflow: hidden; 
+  transition: transform 4s ease-out; 
+}
+
+.pointer { 
+  position: absolute; 
+  top: -10px; 
+  left: 50%; 
+  transform: translateX(-50%); 
+  font-size: 24px; 
+  color: #e50914; 
+  z-index: 10; 
+}
+
+.spin-btn { 
+  background: #28a745; 
+  color: white; 
+  border: none; 
+  padding: 12px 25px; 
+  font-weight: bold; 
+  border-radius: 6px; 
+  cursor: pointer; 
+  font-size: 16px; 
+}
