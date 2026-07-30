@@ -1,230 +1,103 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GamePayUZ</title>
-    <!-- Telegram WebApp SDK -->
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --accent-color: #38bdf8;
-            --text-color: #f8fafc;
-            --btn-color: #2563eb;
-        }
-
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 15px;
-            box-sizing: border-box;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .header h1 {
-            margin: 0;
-            color: var(--accent-color);
-            font-size: 24px;
-        }
-
-        .game-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background-color: var(--card-bg);
-            color: var(--text-color);
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .tab-btn.active {
-            background-color: var(--btn-color);
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            color: #94a3b8;
-        }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background-color: var(--card-bg);
-            color: #fff;
-            box-sizing: border-box;
-            font-size: 16px;
-        }
-
-        .packages-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .package-card {
-            background-color: var(--card-bg);
-            border: 2px solid transparent;
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .package-card.selected {
-            border-color: var(--accent-color);
-            background-color: #1e293b;
-        }
-
-        .pkg-amount {
-            font-size: 18px;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .pkg-price {
-            font-size: 14px;
-            color: var(--accent-color);
-            margin-top: 5px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            padding: 15px;
-            background-color: #22c55e;
-            border: none;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GamePayUZB - Official Top Up Center</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#e50914">
 </head>
 <body>
 
-    <div class="header">
-        <h1>🎮 GamePayUZ</h1>
-        <p style="font-size: 12px; color: #94a3b8;">Tezkor va ishonchli donat xizmati</p>
+  <!-- Top Navbar -->
+  <header class="navbar">
+    <div class="logo">
+      <span class="brand-red">GamePay</span><span class="brand-dark">UZB</span>
+      <span class="divider">|</span>
+      <span class="site-title">Official Top Up Center</span>
+    </div>
+    <div class="user-region">UZB | UZS</div>
+  </header>
+
+  <!-- Hero Banner -->
+  <div class="hero-banner">
+    <h2>GAMEPAYUZB TOP UP CENTER</h2>
+    <p>100% Safe & Secure Payment</p>
+  </div>
+
+  <main class="main-container">
+
+    <!-- Game Selection (Faqat FF va PUBG Mobile) -->
+    <section class="section-container">
+      <div class="section-title">Game Selection</div>
+      <div class="game-grid">
+        <div class="game-item active" id="game-ff" onclick="selectGame('ff')">
+          <img src="https://via.placeholder.com/60/d0021b/ffffff?text=FF" alt="Free Fire">
+          <span>Free Fire</span>
+        </div>
+        <div class="game-item" id="game-pubg" onclick="selectGame('pubg')">
+          <img src="https://via.placeholder.com/60/f5a623/ffffff?text=PUBG" alt="PUBG Mobile">
+          <span>PUBG Mobile</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 1: Player ID -->
+    <section class="section-container">
+      <div class="step-header"><span class="step-num">1</span> Login</div>
+      <div class="login-box">
+        <label>Player ID</label>
+        <div class="input-group">
+          <input type="text" id="player-id" placeholder="Please enter player ID here">
+          <button class="login-btn" onclick="verifyId()">Login</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Step 2: Top-up Amount & Special Deals -->
+    <section class="section-container">
+      <div class="step-header"><span class="step-num">2</span> Top-up Amount</div>
+      
+      <!-- Standard Packages (Diamant va UC) -->
+      <div class="items-grid" id="standard-packages"></div>
+
+      <!-- Special Deals (Vaucher, Booyah Pass, RP, Membership) -->
+      <div class="special-deals-title">Special Deals</div>
+      <div class="special-grid" id="special-packages"></div>
+    </section>
+
+    <!-- Omad Barabani Modal (To'lovdan keyin ochiladi) -->
+    <div id="wheel-modal" class="modal">
+      <div class="modal-content">
+        <h3>🎉 To'lov bajarildi! Omad Barabani</h3>
+        <p>Bonus yutib oling!</p>
+        <div class="wheel-box">
+          <div class="pointer">▼</div>
+          <div class="wheel" id="wheel">
+            <div class="wheel-sec" style="--i:1;--clr:#e50914;">60 UC / Diamant</div>
+            <div class="wheel-sec" style="--i:2;--clr:#333;">Vaucher</div>
+            <div class="wheel-sec" style="--i:3;--clr:#e50914;">100 Bonus</div>
+            <div class="wheel-sec" style="--i:4;--clr:#333;">Omad kelmadi</div>
+            <div class="wheel-sec" style="--i:5;--clr:#e50914;">Booyah Pass / RP</div>
+            <div class="wheel-sec" style="--i:6;--clr:#333;">10 Diamant</div>
+          </div>
+        </div>
+        <button id="spin-btn" class="spin-btn" onclick="spinWheel()">Barabanni Aylantirish</button>
+      </div>
     </div>
 
-    <!-- O'yinni tanlash -->
-    <div class="game-tabs">
-        <button class="tab-btn active" id="btn-ff" onclick="selectGame('ff')">Free Fire 🔥</button>
-        <button class="tab-btn" id="btn-pubg" onclick="selectGame('pubg')">PUBG Mobile 🪂</button>
+  </main>
+
+  <!-- Bottom Checkout Bar -->
+  <footer class="checkout-bar">
+    <div class="selected-summary">
+      <span id="selected-item-display">Hali hech narsa tanlanmadi</span>
+      <strong id="selected-price-display">0 UZS</strong>
     </div>
+    <button class="buy-now-btn" onclick="processOrder()">Buy Now</button>
+  </footer>
 
-    <!-- Player ID -->
-    <div class="form-group">
-        <label for="playerId">O'yindagi ID raqamingiz:</label>
-        <input type="number" id="playerId" placeholder="Masalan: 12345678" required>
-    </div>
-
-    <!-- Paketlar -->
-    <label>Paketni tanlang:</label>
-    <div class="packages-grid" id="packages">
-        <!-- JS orqali to'ldiriladi -->
-    </div>
-
-    <button class="submit-btn" onclick="submitOrder()">Buyurtma berish</button>
-
-    <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
-
-        let selectedGame = 'ff';
-        let selectedPackage = null;
-
-        const packagesData = {
-            ff: [
-                { id: 'ff_100', name: '100 Olmos', price: '14 000 so\'m' },
-                { id: 'ff_310', name: '310 Olmos', price: '40 000 so\'m' },
-                { id: 'ff_520', name: '520 Olmos', price: '65 000 so\'m' },
-                { id: 'ff_1060', name: '1060 Olmos', price: '130 000 so\'m' }
-            ],
-            pubg: [
-                { id: 'pubg_60', name: '60 UC', price: '13 000 so\'m' },
-                { id: 'pubg_325', name: '325 UC', price: '60 000 so\'m' },
-                { id: 'pubg_660', name: '660 UC', price: '118 000 so\'m' },
-                { id: 'pubg_1800', name: '1800 UC', price: '290 000 so\'m' }
-            ]
-        };
-
-        function selectGame(game) {
-            selectedGame = game;
-            selectedPackage = null;
-            document.getElementById('btn-ff').classList.toggle('active', game === 'ff');
-            document.getElementById('btn-pubg').classList.toggle('active', game === 'pubg');
-            renderPackages();
-        }
-
-        function renderPackages() {
-            const container = document.getElementById('packages');
-            container.innerHTML = '';
-            
-            packagesData[selectedGame].forEach(pkg => {
-                const card = document.createElement('div');
-                card.className = 'package-card';
-                card.onclick = () => {
-                    document.querySelectorAll('.package-card').forEach(c => c.classList.remove('selected'));
-                    card.classList.add('selected');
-                    selectedPackage = pkg;
-                };
-                card.innerHTML = `
-                    <div class="pkg-amount">${pkg.name}</div>
-                    <div class="pkg-price">${pkg.price}</div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function submitOrder() {
-            const playerId = document.getElementById('playerId').value;
-
-            if (!playerId) {
-                alert("Iltimos, o'yin ID raqamingizni kiriting!");
-                return;
-            }
-            if (!selectedPackage) {
-                alert("Iltimos, paketni tanlang!");
-                return;
-            }
-
-            const orderData = {
-                game: selectedGame === 'ff' ? 'Free Fire' : 'PUBG Mobile',
-                playerId: playerId,
-                package: selectedPackage.name,
-                price: selectedPackage.price
-            };
-
-            tg.sendData(JSON.stringify(orderData));
-        }
-
-        renderPackages();
-    </script>
+  <script src="script.js"></script>
 </body>
 </html>
