@@ -1,103 +1,69 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GamePayUZB - Official Top Up Center</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#e50914">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamePayUZB - Official Top Up Center</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#e50914">
 </head>
 <body>
 
-  <!-- Top Navbar -->
-  <header class="navbar">
-    <div class="logo">
-      <span class="brand-red">GamePay</span><span class="brand-dark">UZB</span>
-      <span class="divider">|</span>
-      <span class="site-title">Official Top Up Center</span>
-    </div>
-    <div class="user-region">UZB | UZS</div>
-  </header>
-
-  <!-- Hero Banner -->
-  <div class="hero-banner">
-    <h2>GAMEPAYUZB TOP UP CENTER</h2>
-    <p>100% Safe & Secure Payment</p>
-  </div>
-
-  <main class="main-container">
-
-    <!-- Game Selection (Faqat FF va PUBG Mobile) -->
-    <section class="section-container">
-      <div class="section-title">Game Selection</div>
-      <div class="game-grid">
-        <div class="game-item active" id="game-ff" onclick="selectGame('ff')">
-          <img src="https://via.placeholder.com/60/d0021b/ffffff?text=FF" alt="Free Fire">
-          <span>Free Fire</span>
+    <!-- Top Navbar -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="brand-red">GamePay</span><span class="brand-dark">UZB</span>
+            <span class="divider">|</span>
+            <span class="site-title">Official Top Up Center</span>
         </div>
-        <div class="game-item" id="game-pubg" onclick="selectGame('pubg')">
-          <img src="https://via.placeholder.com/60/f5a623/ffffff?text=PUBG" alt="PUBG Mobile">
-          <span>PUBG Mobile</span>
-        </div>
-      </div>
-    </section>
+        <div class="user-region">UZB | UZS</div>
+    </header>
 
-    <!-- Step 1: Player ID -->
-    <section class="section-container">
-      <div class="step-header"><span class="step-num">1</span> Login</div>
-      <div class="login-box">
-        <label>Player ID</label>
-        <div class="input-group">
-          <input type="text" id="player-id" placeholder="Please enter player ID here">
-          <button class="login-btn" onclick="verifyId()">Login</button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Step 2: Top-up Amount & Special Deals -->
-    <section class="section-container">
-      <div class="step-header"><span class="step-num">2</span> Top-up Amount</div>
-      
-      <!-- Standard Packages (Diamant va UC) -->
-      <div class="items-grid" id="standard-packages"></div>
-
-      <!-- Special Deals (Vaucher, Booyah Pass, RP, Membership) -->
-      <div class="special-deals-title">Special Deals</div>
-      <div class="special-grid" id="special-packages"></div>
-    </section>
-
-    <!-- Omad Barabani Modal (To'lovdan keyin ochiladi) -->
-    <div id="wheel-modal" class="modal">
-      <div class="modal-content">
-        <h3>🎉 To'lov bajarildi! Omad Barabani</h3>
-        <p>Bonus yutib oling!</p>
-        <div class="wheel-box">
-          <div class="pointer">▼</div>
-          <div class="wheel" id="wheel">
-            <div class="wheel-sec" style="--i:1;--clr:#e50914;">60 UC / Diamant</div>
-            <div class="wheel-sec" style="--i:2;--clr:#333;">Vaucher</div>
-            <div class="wheel-sec" style="--i:3;--clr:#e50914;">100 Bonus</div>
-            <div class="wheel-sec" style="--i:4;--clr:#333;">Omad kelmadi</div>
-            <div class="wheel-sec" style="--i:5;--clr:#e50914;">Booyah Pass / RP</div>
-            <div class="wheel-sec" style="--i:6;--clr:#333;">10 Diamant</div>
-          </div>
-        </div>
-        <button id="spin-btn" class="spin-btn" onclick="spinWheel()">Barabanni Aylantirish</button>
-      </div>
+    <!-- Hero Banner -->
+    <div class="hero-banner">
+        <h2>GAMEPAYUZB TOP UP CENTER</h2>
+        <p>100% Safe & Secure Payment</p>
     </div>
 
-  </main>
+    <main class="main-container">
 
-  <!-- Bottom Checkout Bar -->
-  <footer class="checkout-bar">
-    <div class="selected-summary">
-      <span id="selected-item-display">Hali hech narsa tanlanmadi</span>
-      <strong id="selected-price-display">0 UZS</strong>
+        <!-- 1. Game Selection -->
+        <section class="section-container">
+            <h2>1. Select Game</h2>
+            <div class="game-select-grid">
+                <button type="button" id="game-ff" class="game-btn active" onclick="selectGame('ff')">Free Fire</button>
+                <button type="button" id="game-pubg" class="game-btn" onclick="selectGame('pubg')">PUBG Mobile</button>
+            </div>
+        </section>
+
+        <!-- 2. Login (Player ID) -->
+        <section class="section-container">
+            <h2>2. Enter Player ID</h2>
+            <div class="input-group">
+                <input type="text" id="player-id" placeholder="Enter Player ID (e.g. 123456789)">
+            </div>
+        </section>
+
+        <!-- 3. Top-up Packages -->
+        <section class="section-container">
+            <h2>3. Select Package</h2>
+            <div id="package-container" class="package-grid">
+                <!-- Paketlar JS orqali avtomatik keladi -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer Checkout Bar -->
+    <div class="checkout-bar">
+        <div class="selected-summary">
+            <span id="selected-item-display">100 Diamant</span>
+            <strong id="selected-price-display">13,000 UZS</strong>
+        </div>
+        <button type="button" class="buy-now-btn" onclick="processOrder()">Buy Now</button>
     </div>
-    <button class="buy-now-btn" onclick="processOrder()">Buy Now</button>
-  </footer>
 
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
