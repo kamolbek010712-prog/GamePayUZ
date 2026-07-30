@@ -2,7 +2,6 @@ import requests
 import telebot
 from telebot import types
 
-# Sozlamalar
 BOT_TOKEN = '8908906277:AAHc3SFpNAu3gnC7JLLyWp59OXwMZaQn508'
 FIREBASE_URL = "https://gamepay-web-default-rtdb.firebaseio.com/checks"
 
@@ -28,10 +27,9 @@ def reject_player(player_id):
 # /start buyrug'i
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "GamePayUZ Admin Boti ishga tushdi! 🚀\n\nSaytdan tekshirish so'rovlari shu yerga tushadi.")
+    bot.reply_to(message, "GamePayUZ Admin Boti ishga tushdi! 🚀\n\nBuyruqlar:\n/nick ID NICKNAME - ID ni tasdiqlash\n/xato ID - ID xatoligini yuborish")
 
-# Nickname tasdiqlash uchun buyruq: /nick ID NICKNAME
-# Masalan: /nick 9775793347 GAMER_UZ
+# Nickname tasdiqlash: /nick 9775793347 PRO_PLAYER
 @bot.message_handler(commands=['nick'])
 def set_nickname(message):
     try:
@@ -44,12 +42,11 @@ def set_nickname(message):
         nickname = args[2]
         
         approve_player(player_id, nickname)
-        bot.reply_to(message, f"✅ **ID:** `{player_id}`\n👤 **Nick:** `{nickname}`\n\nSaytga muvaffaqiyatli yuborildi!", parse_mode="Markdown")
+        bot.reply_to(message, f"✅ **ID:** `{player_id}`\n👤 **Nick:** `{nickname}`\n\nSaytga tasdiq yuborildi!", parse_mode="Markdown")
     except Exception as e:
         bot.reply_to(message, f"❌ Xatolik: {str(e)}")
 
-# ID xatoligini bildirish uchun buyruq: /xato ID
-# Masalan: /xato 9775793347
+# ID xatoligi: /xato 9775793347
 @bot.message_handler(commands=['xato'])
 def set_error(message):
     try:
@@ -60,10 +57,19 @@ def set_error(message):
         
         player_id = args[1]
         reject_player(player_id)
-        bot.reply_to(message, f"❌ **ID:** `{player_id}` uchun xatolik buyrug'i saytga yuborildi!", parse_mode="Markdown")
+        bot.reply_to(message, f"❌ **ID:** `{player_id}` rad etildi va saytga yuborildi!", parse_mode="Markdown")
     except Exception as e:
         bot.reply_to(message, f"❌ Xatolik: {str(e)}")
 
-# Botni uzluksiz eshitish rejimi
+# Inline tugmalar bosilganda ishlaydigan qism
+@bot.callback_query_handler(func=lambda call: True)
+def callback_inline(call):
+    if call.data.startswith("reject_"):
+        player_id = call.data.split("_")[1]
+        reject_player(player_id)
+        bot.answer_callback_query(call.id, "ID rad etildi!")
+        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, 
+                              text=f"❌ **ID:** `{player_id}` rad etildi!", parse_mode="Markdown")
+
 print("Bot ishga tushdi...")
 bot.infinity_polling()
