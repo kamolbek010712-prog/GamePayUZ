@@ -54,4 +54,22 @@ def send_welcome(message):
     )
 
 print("Bot ishga tushdi...")
-bot.infinity_polling()
+bot.infinity_polling()# Foydalanuvchi yuborgan ID ni qabul qiluvchi handler (Python)
+@bot.message_handler(func=lambda message: message.text.isdigit())
+def handle_user_id(message):
+    user_input_id = message.text # Foydalanuvchi yozgan Free Fire ID (masalan: 8785880742)
+    
+    # Saytingiz manzili va oxiriga parametrlarni ulaymiz
+    site_link = f"https://kamolbek010712-prog.github.io/GamePayUZB/?user_id={user_input_id}"
+    
+    # Ssilka tugmasini yaratish
+    keyboard = InlineKeyboardMarkup()
+    site_button = InlineKeyboardButton(text="🌐 Saytda nikni ko'rish", url=site_link)
+    keyboard.add(site_button)
+    
+    bot.send_message(
+        chat_id=message.chat.id,
+        text=f"✅ <b>ID qabul qilindi:</b> <code>{user_input_id}</code>\n\nNikni va kartalarni tekshirish uchun tugmani bosing:",
+        parse_mode="HTML",
+        reply_markup=keyboard
+    )
