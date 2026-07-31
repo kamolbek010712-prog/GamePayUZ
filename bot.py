@@ -1,75 +1,57 @@
-import requests
 import telebot
-from telebot import types
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-BOT_TOKEN = '8908906277:AAHc3SFpNAu3gnC7JLLyWp59OXwMZaQn508'
-FIREBASE_URL = "https://gamepay-web-default-rtdb.firebaseio.com/checks"
-
+# Botingiz tokeni
+BOT_TOKEN = "8908906277:AAHc3SFpNAu3gnC7JLLyWp59OXwMZaQn508"
 bot = telebot.TeleBot(BOT_TOKEN)
 
-# Saytga "Muvaffaqiyatli" (Nick bilan) habar yuborish
-def approve_player(player_id, nickname):
-    url = f"{FIREBASE_URL}/{player_id}.json"
-    data = {
-        "status": "success",
-        "nickname": nickname
-    }
-    requests.patch(url, json=data)
-
-# Saytga "Xatolik" habarini yuborish
-def reject_player(player_id):
-    url = f"{FIREBASE_URL}/{player_id}.json"
-    data = {
-        "status": "error"
-    }
-    requests.patch(url, json=data)
-
-# /start buyrug'i
+# /start bosilganda ishlovchi funksiya
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
-    bot.reply_to(message, "GamePayUZ Admin Boti ishga tushdi! 🚀\n\nBuyruqlar:\n/nick ID NICKNAME - ID ni tasdiqlash\n/xato ID - ID xatoligini yuborish")
-
-# Nickname tasdiqlash: /nick 9775793347 PRO_PLAYER
-@bot.message_handler(commands=['nick'])
-def set_nickname(message):
-    try:
-        args = message.text.split(maxsplit=2)
-        if len(args) < 3:
-            bot.reply_to(message, "⚠️ Qolib: `/nick PLAYER_ID NICKNAME`\nMasalan: `/nick 9775793347 PRO_PLAYER`", parse_mode="Markdown")
-            return
-        
-        player_id = args[1]
-        nickname = args[2]
-        
-        approve_player(player_id, nickname)
-        bot.reply_to(message, f"✅ **ID:** `{player_id}`\n👤 **Nick:** `{nickname}`\n\nSaytga tasdiq yuborildi!", parse_mode="Markdown")
-    except Exception as e:
-        bot.reply_to(message, f"❌ Xatolik: {str(e)}")
-
-# ID xatoligi: /xato 9775793347
-@bot.message_handler(commands=['xato'])
-def set_error(message):
-    try:
-        args = message.text.split()
-        if len(args) < 2:
-            bot.reply_to(message, "⚠️ Qolib: `/xato PLAYER_ID`\nMasalan: `/xato 9775793347`", parse_mode="Markdown")
-            return
-        
-        player_id = args[1]
-        reject_player(player_id)
-        bot.reply_to(message, f"❌ **ID:** `{player_id}` rad etildi va saytga yuborildi!", parse_mode="Markdown")
-    except Exception as e:
-        bot.reply_to(message, f"❌ Xatolik: {str(e)}")
-
-# Inline tugmalar bosilganda ishlaydigan qism
-@bot.callback_query_handler(func=lambda call: True)
-def callback_inline(call):
-    if call.data.startswith("reject_"):
-        player_id = call.data.split("_")[1]
-        reject_player(player_id)
-        bot.answer_callback_query(call.id, "ID rad etildi!")
-        bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, 
-                              text=f"❌ **ID:** `{player_id}` rad etildi!", parse_mode="Markdown")
+    user_id = message.from_user.id
+    
+    # Saytingiz (GamePayUZB) manzili — o'zingiznikiga almashtirishingiz mumkin
+    site_url = f"https://sizning-app-nomingiz.onrender.com/?user_id={user_id}"
+    
+    # Rasmdagidek Tugmalarni (Inline Keyboard) yaratish
+    keyboard = InlineKeyboardMarkup()
+    
+    # 1. Nusxalash uchun qulay ID tugmasi (Rasmdagi kabi)
+    copy_id_btn = InlineKeyboardButton(
+        text=f"📋 {user_id}", 
+        switch_inline_query=str(user_id)
+    )
+    
+    # 2. Saytga o'tish uchun ssilka tugmasi
+    site_btn = InlineKeyboardButton(
+        text="🌐 GamePayUZB Saytiga o'tish", 
+        url=site_url
+    )
+    
+    # 3. Ulashish tugmasi (Share)
+    share_btn = InlineKeyboardButton(
+        text="🔗 ID'ni ulashish", 
+        switch_inline_query=f"Mening ID'im: {user_id}"
+    )
+    
+    # Tugmalarni qatorma-qator joylash
+    keyboard.add(copy_id_btn)
+    keyboard.add(site_btn)
+    keyboard.add(share_btn)
+    
+    # Xabar matni
+    text_message = (
+        f"<b>Loading...</b>\n\n"
+        f"✅ <b>User ID :</b> <code>{user_id}</code>\n\n"
+        f"<i>Saytda nikni chiqarish uchun quyidagi tugma orqali o'ting:</i>"
+    )
+    
+    bot.send_message(
+        chat_id=message.chat.id, 
+        text=text_message, 
+        parse_mode="HTML", 
+        reply_markup=keyboard
+    )
 
 print("Bot ishga tushdi...")
 bot.infinity_polling()
