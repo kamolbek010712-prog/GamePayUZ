@@ -73,3 +73,34 @@ def handle_user_id(message):
         parse_mode="HTML",
         reply_markup=keyboard
     )
+    import telebot
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+
+BOT_TOKEN = "8908906277:AAHc3SFpNAu3gnC7JLLyWp59OXwMZaQn508"
+bot = telebot.TeleBot(BOT_TOKEN)
+
+# Saytingiz manzili
+YOUR_SITE_URL = "https://kamolbek010712-prog.github.io/GamePayUZB/"
+
+# --- BOYAGI YOZGAN FUNKSIYALARINGIZ SHU YERDA TURADI ---
+
+
+# --- YANGI QO'SHILAYOTGAN QISM (PASTIDAN YOZILADI) ---
+@bot.message_handler(commands=['start'])
+def send_welcome(message):
+    user_id = message.from_user.id
+    full_url = f"{YOUR_SITE_URL}?user_id={user_id}"
+    
+    keyboard = InlineKeyboardMarkup()
+    site_btn = InlineKeyboardButton(text="🌐 Saytga o'tish", url=full_url)
+    keyboard.add(site_btn)
+    
+    bot.send_message(
+        chat_id=message.chat.id,
+        text=f"Salom! GamePayUZB xizmatiga xush kelibsiz.\nID: <code>{user_id}</code>",
+        parse_mode="HTML",
+        reply_markup=keyboard
+    )
+
+# --- SHU QATOR HAR DOIM ENG PASTDA BO'LISHI SHART ---
+bot.infinity_polling()
