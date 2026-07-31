@@ -48,25 +48,124 @@
             </div>
             <div id="nickname-status" class="status-box"></div>
         </section>
-
-        <!-- 3. Select Package -->
-        <section class="section-container">
-            <h2 class="section-title">3. Paketni tanlang</h2>
-            <div id="package-container" class="package-grid">
-                <!-- Paketlar va rasmlar JS'dan keladi -->
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Checkout Bar (Pastki qism) -->
-    <div class="checkout-bar">
-        <div class="selected-summary">
-            <span id="selected-item-display">100 Diamant</span>
-            <strong id="selected-price-display">13,000 UZS</strong>
-        </div>
-        <button type="button" class="buy-now-btn" onclick="processOrder()">Buy Now</button>
+<!-- 3. Select Package -->
+<section class="section-container">
+  <h2 class="section-title">3. Paketni tanlang</h2>
+  
+  <!-- FREE FIRE PAKETLARI -->
+  <div id="ff-packages" class="package-grid">
+    
+    <!-- 100 Diamond -->
+    <div class="card" onclick="selectPackage('ff_100')">
+      <span class="badge">Bonus +100</span>
+      <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80" alt="100 Diamonds">
+      <h3>💎 100 Olmos</h3>
+      <button class="buy-btn">15 000 so'm</button>
     </div>
+
+    <!-- 310 Diamond -->
+    <div class="card" onclick="selectPackage('ff_310')">
+      <span class="badge">Bonus +310</span>
+      <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80" alt="310 Diamonds">
+      <h3>💎 310 Olmos</h3>
+      <button class="buy-btn">45 000 so'm</button>
+    </div>
+
+    <!-- 520 Diamond -->
+    <div class="card" onclick="selectPackage('ff_520')">
+      <span class="badge">Bonus +520</span>
+      <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80" alt="520 Diamonds">
+      <h3>💎 520 Olmos</h3>
+      <button class="buy-btn">70 000 so'm</button>
+    </div>
+
+    <!-- 1060 Diamond -->
+    <div class="card" onclick="selectPackage('ff_1060')">
+      <span class="badge">Bonus +1060</span>
+      <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80" alt="1060 Diamonds">
+      <h3>💎 1060 Olmos</h3>
+      <button class="buy-btn">150 000 so'm</button>
+    </div>
+
+    <!-- 2180 Diamond -->
+    <div class="card" onclick="selectPackage('ff_2180')">
+      <span class="badge">Bonus +2180</span>
+      <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80" alt="2180 Diamonds">
+      <h3>💎 2180 Olmos</h3>
+      <button class="buy-btn">290 000 so'm</button>
+    </div>
+
+    <!-- 5600 Diamond -->
+    <div class="card" onclick="selectPackage('ff_5600')">
+      <span class="badge">Bonus +5600</span>
+      <img src="https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=200&q=80" alt="5600 Diamonds">
+      <h3>💎 5600 Olmos</h3>
+      <button class="buy-btn">690 000 so'm</button>
+    </div>
+
+    <!-- Weekly Lite -->
+    <div class="card" onclick="selectPackage('ff_weekly_lite')">
+      <img src="https://img.icons8.com/fluency/96/diamond.png" alt="Weekly Lite">
+      <h3>🎫 Weekly Lite</h3>
+      <button class="buy-btn">7 000 so'm</button>
+    </div>
+
+    <!-- Weekly Membership -->
+    <div class="card" onclick="selectPackage('ff_weekly')">
+      <img src="https://img.icons8.com/fluency/96/vip.png" alt="Weekly">
+      <h3>🎫 Weekly Membership</h3>
+      <button class="buy-btn">28 000 so'm</button>
+    </div>
+
+    <!-- Monthly Membership -->
+    <div class="card" onclick="selectPackage('ff_monthly')">
+      <img src="https://img.icons8.com/fluency/96/crown.png" alt="Monthly">
+      <h3>🎫 Monthly Membership</h3>
+      <button class="buy-btn">140 000 so'm</button>
+    </div>
+  </div>
+
+  <!-- PUBG MOBILE PAKETLARI (RASMLI) -->
+  <div id="pubg-packages" class="package-grid" style="display: none;">
+    
+    <div class="card" onclick="selectPackage('pubg_60')">
+      <img src="https://img.icons8.com/color/96/gold-bars.png" alt="60 UC">
+      <h3>🪙 60 UC</h3>
+      <button class="buy-btn">13 000 so'm</button>
+    </div>
+
+    <div class="card" onclick="selectPackage('pubg_325')">
+      <img src="https://img.icons8.com/color/96/gold-bars.png" alt="325 UC">
+      <h3>🪙 325 UC</h3>
+      <button class="buy-btn">60 000 so'm</button>
+    </div>
+
+    <div class="card" onclick="selectPackage('pubg_660')">
+      <img src="https://img.icons8.com/color/96/gold-bars.png" alt="660 UC">
+      <h3>🪙 660 UC</h3>
+      <button class="buy-btn">120 000 so'm</button>
+    </div>
+
+    <div class="card" onclick="selectPackage('pubg_1800')">
+      <img src="https://img.icons8.com/color/96/gold-bars.png" alt="1800 UC">
+      <h3>🪙 1800 UC</h3>
+      <button class="buy-btn">300 000 so'm</button>
+    </div>
+
+    <div class="card" onclick="selectPackage('pubg_3850')">
+      <img src="https://img.icons8.com/color/96/gold-bars.png" alt="3850 UC">
+      <h3>🪙 3850 UC</h3>
+      <button class="buy-btn">600 000 so'm</button>
+    </div>
+
+    <div class="card" onclick="selectPackage('pubg_8100')">
+      <img src="https://img.icons8.com/color/96/gold-bars.png" alt="8100 UC">
+      <h3>🪙 8100 UC</h3>
+      <button class="buy-btn">1 200 000 so'm</button>
+    </div>
+
+  </div>
+</section>
 
 <script src="script.js?v=2.0"></script>
 </body>
